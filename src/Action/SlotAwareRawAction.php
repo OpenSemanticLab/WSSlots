@@ -200,7 +200,10 @@ class SlotAwareRawAction extends FormlessAction {
 			// Public-only due to cache headers
 			// Fetch specific slot if defined
 			$slot = $this->getRequest()->getText( 'slot' );
-			if ( $slot ) {  $content = $rev->getContent($slot); }
+			if ( $slot ) {
+				if ( $rev->hasSlot( $slot ) ) $content = $rev->getContent( $slot );
+				else $content = null;
+			}
 			else $content = $rev->getContent( SlotRecord::MAIN );
 
 			if ( $content === null ) {

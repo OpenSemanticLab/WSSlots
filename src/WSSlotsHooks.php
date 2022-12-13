@@ -155,4 +155,9 @@ class WSSlotsHooks implements
 
         return true;
     }
+
+    public static function onResourceLoaderGetConfigVars( array &$vars, string $skin, \Config $config ) {
+		$vars['wgWSSlotsDefinedSlots'] = $config->get( 'WSSlotsDefinedSlots' );
+		return true;
+	}
 }

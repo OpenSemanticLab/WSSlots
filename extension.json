@@ -26,7 +26,8 @@
     "ListDefinedTags": "main",
     "ChangeTagsListActive": "main",
     "SMW::Store::BeforeDataUpdateComplete": "\\WSSlots\\WSSlotsHooks::onBeforeDataUpdateComplete",
-    "ScribuntoExternalLibraries": "\\WSSlots\\WSSlotsHooks::onScribuntoExternalLibraries"
+    "ScribuntoExternalLibraries": "\\WSSlots\\WSSlotsHooks::onScribuntoExternalLibraries",
+    "ResourceLoaderGetConfigVars": "\\WSSlots\\WSSlotsHooks::onResourceLoaderGetConfigVars"
   },
   "HookHandlers": {
     "main": {

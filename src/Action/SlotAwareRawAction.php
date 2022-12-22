@@ -200,12 +200,18 @@ class SlotAwareRawAction extends FormlessAction {
 			// Public-only due to cache headers
 			// Fetch specific slot if defined
 			$slot = $this->getRequest()->getText( 'slot' );
-			if ( $slot ) {  $content = $rev->getContent($slot); }
-			else $content = $rev->getContent( SlotRecord::MAIN );
+			if ( $slot ) {
+				if ( $rev->hasSlot( $slot ) ) {
+					$content = $rev->getContent( $slot );
+				} else {
+					$content = null;
+				}
+			} else {
+				$content = $rev->getContent( SlotRecord::MAIN );
+			}
 
 			if ( $content === null ) {
-				// revision not found (or suppressed)
-				$text = false;
+				// revision or slot not found (or suppressed)
 			} elseif ( !$content instanceof TextContent ) {
 				// non-text content
 				wfHttpError( 415, "Unsupported Media Type", "The requested page uses the content model `"

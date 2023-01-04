@@ -29,6 +29,8 @@
   "wsslots-apierror-slotdoesnotexist": "The slot '$1' does not exist on page '$2'.",
   "wsslots-apierror-nottext": "The content model '$1' cannot be returned, because it is not text.",
   "wsslots-error-invalid-wikipage-object": "The given WikiPage object is not valid, since it does not have a Title.",
+  "wsslots-error-missing-read-rights": "You are not allowed to read the slot content on the given page.",
+  "wsslots-error-missing-edit-rights": "You are not allowed to edit the slot content on the given page.",
   "tag-wsslots-slot-edit": "Metadata slot edit",
   "tag-wsslots-slot-edit-description": "Edit made using WSSlots"
 }

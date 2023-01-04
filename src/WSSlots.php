@@ -56,6 +56,19 @@ class WSSlots {
 			return [ wfMessage( "wsslots-error-invalid-wikipage-object" ) ];
 		}
 
+		$userCan = MediaWikiServices::getInstance()->getPermissionManager()->userCan(
+			'edit',
+			$user,
+			$titleObject
+		);
+
+		if ( !$userCan ) {
+			$logger->alert( 'The user is not allowed to edit the page {page}', [
+				'page' => $titleObject->getFullText()
+			] );
+			return [ wfMessage( "wsslots-error-missing-edit-rights" ) ];
+		}
+
 		$logger->debug( 'Editing slot {slotName} on page {page}', [
 			'slotName' => $slotName,
 			'page' => $titleObject->getFullText()
@@ -168,6 +181,20 @@ class WSSlots {
 	 * @return Content|null The content in the given slot, or NULL if no content exists
 	 */
 	final public static function getSlotContent( WikiPage $wikiPage, string $slot ): ?Content {
+
+		$userCan = MediaWikiServices::getInstance()->getPermissionManager()->userCan(
+			'read',
+			$user,
+			$wikiPage->getTitle()
+		);
+
+		if ( !$userCan ) {
+			$logger->alert( 'The user is not allowed to read the page {page}', [
+				'page' => $titleObject->getFullText()
+			] );
+			return [ wfMessage( "wsslots-error-missing-read-rights" ) ];
+		}
+
 		$revisionRecord = $wikiPage->getRevisionRecord();
 
 		if ( $revisionRecord === null || !$revisionRecord->hasSlot( $slot ) ) {

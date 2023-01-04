@@ -41,7 +41,13 @@ class ApiReadSlot extends ApiBase {
             $this->dieWithError( wfMessage( "wsslots-apierror-nottext", $content->getModel() ), "nottext" );
         }
 
-        $this->getResult()->addValue( null, 'result', $content->getText() );
+        if ( $params['resultformat'] === 'raw' ) {
+            $this->getResult()->addValue( null, null, $content->beautifyJSON() );
+        }
+
+        else {
+            $this->getResult()->addValue( null, 'result', $content->getText() );
+        }
     }
 
     /**
@@ -65,7 +71,11 @@ class ApiReadSlot extends ApiBase {
             'slot' => [
                 ApiBase::PARAM_TYPE => 'text',
                 ParamValidator::PARAM_DEFAULT => SlotRecord::MAIN
-            ]
+            ],
+            'resultformat' => [
+                ApiBase::PARAM_TYPE => 'text',
+                ParamValidator::PARAM_DEFAULT => 'json'
+            ],
         ];
     }
 }
